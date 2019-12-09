@@ -12,7 +12,13 @@ class StartActivity : AppCompatActivity() {
         setContentView(R.layout.activity_start)
 
         generateButton.setOnClickListener{
-            startActivity(Intent(this, PlaceActivity::class.java).apply{putExtra("zipcode", loginUsernameField.text)})
+            val msg: String = loginUsernameField.text.toString()
+
+            if(msg.trim().length>0) {
+                startActivity(Intent(this, PlaceActivity::class.java).apply{putExtra("zipcode", loginUsernameField.text)})
+            }else{
+
+            }
         }
     }
 }
