@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -23,10 +25,39 @@
         android:layout_height="wrap_content" android:inputType="text" android:autofillHints=""
         android:paddingTop="50dp"/>
 
-    <ImageButton
-        android:id="@+id/generateButton"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        tools:srcCompat="@android:drawable/ic_menu_send" android:paddingBottom="0dp"/>
+    <RelativeLayout
+        android:id="@+id/relativelayout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center"
+        android:foregroundGravity="center">
+
+        <ImageView
+            android:id="@+id/generateButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:paddingBottom="0dp"
+            android:scaleX="1"
+            android:scaleY="1"
+            app:srcCompat="@mipmap/red_foreground"
+            tools:src="@mipmap/red_foreground" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/generateButton"
+            android:layout_alignTop="@id/generateButton"
+            android:layout_alignRight="@id/generateButton"
+            android:layout_alignBottom="@id/generateButton"
+            android:layout_margin="1dp"
+            android:gravity="center"
+            android:text="Lets Eat some Food!"
+            android:textColor="#FFFFFFFF" />
+
+
+    </RelativeLayout>
+
 
 </LinearLayout>

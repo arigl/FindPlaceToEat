@@ -66,11 +66,15 @@ public class PlaceActivity extends AppCompatActivity {
         resturantFour = (TextView) findViewById(R.id.resturantFour);
         resturantFive = (TextView) findViewById(R.id.resturantFive);
 
+        String PresentedImage = "";
+
+
 
         int category = new Random().nextInt(4);
 
         if(category == 0){
             categoryFood = "Chinese";
+            //PresentedImage =
         }
         if(category == 1){
             categoryFood = "Italian";
@@ -83,9 +87,12 @@ public class PlaceActivity extends AppCompatActivity {
             categoryFood = "Indian";
         }
 
+        //resturantType.setText("You are eating: " + categoryFood);
+        //resturantLabel.setText("Here are some resturants in your area: ");
+
         Intent OpenList = getIntent();
         //link = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + categoryFood +"in+[" + OpenList.getStringExtra("zipcode") + "]&key=[" + apiKey + "]";
-        link = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=chinese+in+92869&key=AIzaSyBQa6Ff8Xe0R6Tjdb9ScLwQD-Hpn3uZZfg";
+        link = "https://maps.googleapis.com/maps/api/place/textsearch/json?query="+categoryFood+"+in+"+OpenList.getStringExtra("zipcode")+"&key=AIzaSyBQa6Ff8Xe0R6Tjdb9ScLwQD-Hpn3uZZfg";
         btnHit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,6 +100,8 @@ public class PlaceActivity extends AppCompatActivity {
                 generateResults();
             }
         });
+        new JsonTask().execute(link);
+        generateResults();
     }
 
     private void generateResults(){
