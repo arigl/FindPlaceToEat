@@ -14,6 +14,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -22,15 +23,30 @@ import java.util.Random;
 
 import android.content.Intent;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 public class PlaceActivity extends AppCompatActivity {
 
     Button btnHit;
     TextView txtJson;
+
+    TextView resturantOne;
+    TextView resturantTwo;
+    TextView resturantThree;
+    TextView resturantFour;
+    TextView resturantFive;
+
+
     ProgressDialog pd;
     String categoryFood;
     String apiKey = "AIzaSyBQa6Ff8Xe0R6Tjdb9ScLwQD-Hpn3uZZfg";
     String link = "";
+    String[] namesArray;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +55,14 @@ public class PlaceActivity extends AppCompatActivity {
 
         btnHit = (Button) findViewById(R.id.btnHit);
         txtJson = (TextView) findViewById(R.id.tvJsonItem);
+
+
+        resturantOne = (TextView) findViewById(R.id.resturantOne);
+        resturantTwo = (TextView) findViewById(R.id.resturantTwo);
+        resturantThree = (TextView) findViewById(R.id.resturantThree);
+        resturantFour = (TextView) findViewById(R.id.resturantFour);
+        resturantFive = (TextView) findViewById(R.id.resturantFive);
+
 
         int category = new Random().nextInt(4);
 
@@ -57,18 +81,26 @@ public class PlaceActivity extends AppCompatActivity {
         }
 
         Intent OpenList = getIntent();
-        link = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + categoryFood +"in+[" + OpenList.getStringExtra("zipcode") + "]&key=[" + apiKey + "]";
-
+        //link = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + categoryFood +"in+[" + OpenList.getStringExtra("zipcode") + "]&key=[" + apiKey + "]";
+        link = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=chinese+in+92869&key=AIzaSyBQa6Ff8Xe0R6Tjdb9ScLwQD-Hpn3uZZfg";
         btnHit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new JsonTask().execute(link);
+                generateResults();
             }
         });
-
-
     }
 
+    private void generateResults(){
+
+        resturantOne.setText(namesArray[0]);
+        resturantTwo.setText(namesArray[1]);
+        resturantThree.setText(namesArray[2]);
+        resturantFour.setText(namesArray[3]);
+        resturantFive.setText(namesArray[4]);
+
+    }
 
     private class JsonTask extends AsyncTask<String, String, String> {
 
@@ -102,7 +134,8 @@ public class PlaceActivity extends AppCompatActivity {
 
                 while ((line = reader.readLine()) != null) {
                     buffer.append(line+"\n");
-                    Log.d("Response: ", "> " + line);   //here u ll get whole response...... :-)
+                    //Log.d("Response: ", "> " + line);   //here u ll get whole response...... :-)
+                    //System.out.println("Response: " + "> " + line);   //here u ll get whole response...... :-)
 
                 }
 
@@ -135,7 +168,26 @@ public class PlaceActivity extends AppCompatActivity {
                 pd.dismiss();
             }
             //txtJson.setText(result);
-            System.out.println(result);
+
+            try {
+                JSONObject jResult = new JSONObject(result);
+                // JSONObject jsonObject = jResult.getJSONObject("result");
+                //JSONObject jsonObject = jResult.getJSONObject("result");
+                //JSONObject jsonName = jsonObject.getJSONObject("name");
+
+
+                JSONArray names = jResult.getJSONArray("results");
+
+                for (int i = 0; i < names.length(); i++){
+                    namesArray[i] = names.getJSONObject(i).getString("name");
+                    System.out.println(names.getJSONObject(i).getString("name"));
+                }
+                //System.out.println(jsonObject.getString("name"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
         }
     }
 }
