@@ -44,6 +44,7 @@ public class PlaceActivity extends AppCompatActivity {
     String categoryFood;
     String apiKey = "AIzaSyBQa6Ff8Xe0R6Tjdb9ScLwQD-Hpn3uZZfg";
     String link = "";
+
     String[] namesArray;
 
 
@@ -52,6 +53,8 @@ public class PlaceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        namesArray = new String[1000];
 
         btnHit = (Button) findViewById(R.id.btnHit);
         txtJson = (TextView) findViewById(R.id.tvJsonItem);
@@ -93,12 +96,6 @@ public class PlaceActivity extends AppCompatActivity {
     }
 
     private void generateResults(){
-
-        resturantOne.setText(namesArray[0]);
-        resturantTwo.setText(namesArray[1]);
-        resturantThree.setText(namesArray[2]);
-        resturantFour.setText(namesArray[3]);
-        resturantFive.setText(namesArray[4]);
 
     }
 
@@ -181,6 +178,11 @@ public class PlaceActivity extends AppCompatActivity {
                 for (int i = 0; i < names.length(); i++){
                     namesArray[i] = names.getJSONObject(i).getString("name");
                     System.out.println(names.getJSONObject(i).getString("name"));
+                    resturantOne.setText(namesArray[0]);
+                    resturantTwo.setText(namesArray[1]);
+                    resturantThree.setText(namesArray[2]);
+                    resturantFour.setText(namesArray[3]);
+                    resturantFive.setText(namesArray[4]);
                 }
                 //System.out.println(jsonObject.getString("name"));
             } catch (JSONException e) {

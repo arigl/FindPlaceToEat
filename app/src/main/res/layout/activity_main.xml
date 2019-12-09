@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/btnHit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Find out what you are going to get!"
+        tools:layout_editor_absoluteX="157dp"
+        tools:layout_editor_absoluteY="196dp" />
 
     <TextView
         android:id="@+id/resturantOne"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text=""
         tools:layout_editor_absoluteX="172dp"
         tools:layout_editor_absoluteY="327dp" />
 
@@ -18,7 +27,7 @@
         android:id="@+id/resturantTwo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text=""
         tools:layout_editor_absoluteX="170dp"
         tools:layout_editor_absoluteY="371dp" />
 
@@ -26,7 +35,7 @@
         android:id="@+id/resturantThree"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text=""
         tools:layout_editor_absoluteX="174dp"
         tools:layout_editor_absoluteY="416dp" />
 
@@ -34,7 +43,7 @@
         android:id="@+id/resturantFour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text=""
         tools:layout_editor_absoluteX="170dp"
         tools:layout_editor_absoluteY="460dp" />
 
@@ -42,28 +51,11 @@
         android:id="@+id/resturantFive"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text=""
         tools:layout_editor_absoluteX="172dp"
         tools:layout_editor_absoluteY="503dp" />
 
-    <TextView
-        android:id="@+id/dataText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.47"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.39" />
 
-    <Button
-        android:id="@+id/btnHit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="activity_main"
-        tools:layout_editor_absoluteX="157dp"
-        tools:layout_editor_absoluteY="196dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
