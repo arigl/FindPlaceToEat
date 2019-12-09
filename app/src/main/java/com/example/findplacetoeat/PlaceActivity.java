@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -54,6 +55,21 @@ public class PlaceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        generateFood();
+
+
+
+        btnHit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                generateFood();
+            }
+        });
+
+    }
+
+    private void generateFood() {
         namesArray = new String[1000];
 
         btnHit = (Button) findViewById(R.id.btnHit);
@@ -66,33 +82,40 @@ public class PlaceActivity extends AppCompatActivity {
         resturantFour = (TextView) findViewById(R.id.resturantFour);
         resturantFive = (TextView) findViewById(R.id.resturantFive);
 
-
+        int PresentedImage = 0;
         int category = new Random().nextInt(4);
 
         if(category == 0){
             categoryFood = "Chinese";
+            PresentedImage = R.mipmap.chinese;
+
         }
         if(category == 1){
             categoryFood = "Italian";
+            PresentedImage = R.mipmap.italian;
+
         }
         if(category == 2){
             categoryFood = "American";
+            PresentedImage = R.mipmap.american;
 
         }
         if(category == 3){
             categoryFood = "Indian";
+            PresentedImage = R.mipmap.indian;
+
         }
+
+        ((TextView)findViewById(R.id.text1)).setText("You are eating: " + categoryFood);
+        //resturantLabel.setText("Here are some resturants in your area: ");
+        ((ImageView)findViewById(R.id.typeimg)).setImageDrawable(getResources().getDrawable(PresentedImage));
 
         Intent OpenList = getIntent();
         //link = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + categoryFood +"in+[" + OpenList.getStringExtra("zipcode") + "]&key=[" + apiKey + "]";
-        link = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=chinese+in+92869&key=AIzaSyBQa6Ff8Xe0R6Tjdb9ScLwQD-Hpn3uZZfg";
-        btnHit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new JsonTask().execute(link);
-                generateResults();
-            }
-        });
+        link = "https://maps.googleapis.com/maps/api/place/textsearch/json?query="+categoryFood+"+in+"+OpenList.getStringExtra("zipcode")+"&key=AIzaSyBQa6Ff8Xe0R6Tjdb9ScLwQD-Hpn3uZZfg";
+        new JsonTask().execute(link);
+        generateResults();
+
     }
 
     private void generateResults(){
