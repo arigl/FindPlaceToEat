@@ -45,8 +45,11 @@ public class PlaceActivity extends AppCompatActivity {
     String categoryFood;
     String apiKey = "AIzaSyBQa6Ff8Xe0R6Tjdb9ScLwQD-Hpn3uZZfg";
     String link = "";
+    String zip;
+    String linkFood;
 
     String[] namesArray;
+    String[] openArray;
 
 
 
@@ -55,6 +58,14 @@ public class PlaceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Bundle extras = getIntent().getExtras();
+        if(extras == null) {
+            zip= null;
+        } else {
+            zip= "" + extras.getString("zipcode");
+        }
+        zip= "" + extras.getString("zipcode");
+        System.out.println("ZIP = " + zip);
 
         generateFood();
 
@@ -63,6 +74,11 @@ public class PlaceActivity extends AppCompatActivity {
         btnHit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                resturantOne.setText("");
+                resturantTwo.setText("");
+                resturantThree.setText("");
+                resturantFour.setText("");
+                resturantFive.setText("");
                 generateFood();
             }
         });
@@ -87,22 +103,30 @@ public class PlaceActivity extends AppCompatActivity {
 
         if(category == 0){
             categoryFood = "Chinese";
+            linkFood = "Chinese";
             PresentedImage = R.mipmap.chinese;
+            //link = "https://maps.googleapis.com/maps/api/place/textsearch/json?query="+"chinese"+"+in+"+"92869"+"&key=AIzaSyBQa6Ff8Xe0R6Tjdb9ScLwQD-Hpn3uZZfg";
 
         }
         if(category == 1){
             categoryFood = "Italian";
+            linkFood = "pasta";
             PresentedImage = R.mipmap.italian;
+            //link = "https://maps.googleapis.com/maps/api/place/textsearch/json?query="+"italian"+"+in+"+"92869"+"&key=AIzaSyBQa6Ff8Xe0R6Tjdb9ScLwQD-Hpn3uZZfg";
 
         }
         if(category == 2){
             categoryFood = "American";
+            linkFood = "burgers";
             PresentedImage = R.mipmap.american;
+            //link = "https://maps.googleapis.com/maps/api/place/textsearch/json?query="+"American"+"+in+"+"92869"+"&key=AIzaSyBQa6Ff8Xe0R6Tjdb9ScLwQD-Hpn3uZZfg";
 
         }
         if(category == 3){
             categoryFood = "Indian";
+            linkFood = "Indian";
             PresentedImage = R.mipmap.indian;
+            //link = "https://maps.googleapis.com/maps/api/place/textsearch/json?query="+"Indian"+"+in+"+"92869"+"&key=AIzaSyBQa6Ff8Xe0R6Tjdb9ScLwQD-Hpn3uZZfg";
 
         }
 
@@ -110,16 +134,18 @@ public class PlaceActivity extends AppCompatActivity {
         //resturantLabel.setText("Here are some resturants in your area: ");
         ((ImageView)findViewById(R.id.typeimg)).setImageDrawable(getResources().getDrawable(PresentedImage));
 
-        Intent OpenList = getIntent();
+        //zip = getIntent().getStringExtra("zipcode");
+        //String s = getIntent().get("android.text") + "";
+
         //link = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + categoryFood +"in+[" + OpenList.getStringExtra("zipcode") + "]&key=[" + apiKey + "]";
-        link = "https://maps.googleapis.com/maps/api/place/textsearch/json?query="+categoryFood+"+in+"+OpenList.getStringExtra("zipcode")+"&key=AIzaSyBQa6Ff8Xe0R6Tjdb9ScLwQD-Hpn3uZZfg";
+        //link = "https://maps.googleapis.com/maps/api/place/textsearch/json?query="+categoryFood+"+in+"+zip+"&key=AIzaSyBQa6Ff8Xe0R6Tjdb9ScLwQD-Hpn3uZZfg";
+        //link = "https://maps.googleapis.com/maps/api/place/textsearch/json?query="+linkFood+"+in+"+"92869"+"&key=AIzaSyBQa6Ff8Xe0R6Tjdb9ScLwQD-Hpn3uZZfg";
+        link = "https://maps.googleapis.com/maps/api/place/textsearch/json?query="+linkFood+"+in+"+zip+"&key=AIzaSyBQa6Ff8Xe0R6Tjdb9ScLwQD-Hpn3uZZfg";
+
+
+
+        System.out.println(link);
         new JsonTask().execute(link);
-        generateResults();
-
-    }
-
-    private void generateResults(){
-
     }
 
     private class JsonTask extends AsyncTask<String, String, String> {
@@ -191,27 +217,72 @@ public class PlaceActivity extends AppCompatActivity {
 
             try {
                 JSONObject jResult = new JSONObject(result);
-                // JSONObject jsonObject = jResult.getJSONObject("result");
-                //JSONObject jsonObject = jResult.getJSONObject("result");
-                //JSONObject jsonName = jsonObject.getJSONObject("name");
-
-
                 JSONArray names = jResult.getJSONArray("results");
+                //JSONArray hours = jResult.getJSONArray("opening_hours");
+
 
                 for (int i = 0; i < names.length(); i++){
                     namesArray[i] = names.getJSONObject(i).getString("name");
-                    System.out.println(names.getJSONObject(i).getString("name"));
-                    resturantOne.setText(namesArray[0]);
-                    resturantTwo.setText(namesArray[1]);
-                    resturantThree.setText(namesArray[2]);
-                    resturantFour.setText(namesArray[3]);
-                    resturantFive.setText(namesArray[4]);
+                    //openArray[i] = hoursy.getJSONObject(i).getString("open_now");
+                    //System.out.println(names.getJSONObject(i).getString("name"));
+                    System.out.println(namesArray[i] + ": " + i);
+                    //System.out.println(openArray[i] + ": " + i);
+                    /*
+                    else{
+                        resturantOne.setText(namesArray[0] + "");
+                        resturantTwo.setText(namesArray[1] + "");
+                        resturantThree.setText(namesArray[2] + "");
+                        resturantFour.setText(namesArray[3] + "");
+                        resturantFive.setText(namesArray[4] + "");
+                    }
+                    */
                 }
+
+
                 //System.out.println(jsonObject.getString("name"));
             } catch (JSONException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
 
+            //if (namesArray[0] != null && namesArray[0].contains(zip + "")){
+              //  System.out.println("empty");
+            //}
+
+            resturantOne.setText(namesArray[0] + "");
+            resturantTwo.setText(namesArray[1] + "");
+            resturantThree.setText(namesArray[2] + "");
+            resturantFour.setText(namesArray[3] + "");
+            resturantFive.setText(namesArray[4] + "");
+
+
+            if (namesArray[0] == "null" || namesArray[0] == null){
+                resturantOne.setText("No results found");
+                resturantTwo.setText("Check google maps for more information!");
+                resturantThree.setText("");
+                resturantFour.setText("");
+                resturantFive.setText("");
+                //generateFood();
+            }
+
+            if (namesArray[0] == "The Grand Terrace"){
+                resturantOne.setText("No results found");
+                resturantTwo.setText("Check google maps for more information!");
+                resturantThree.setText("");
+                resturantFour.setText("");
+                resturantFive.setText("");
+                //generateFood();
+            }
+            try{
+                if (namesArray[0].contains("92869")){
+                    resturantOne.setText("No results found");
+                    resturantTwo.setText("Check google maps for more information!");
+                    resturantThree.setText("");
+                    resturantFour.setText("");
+                    resturantFive.setText("");
+                }
+            }catch(Exception ex){
+                System.out.println("index 0 is null");
+            }
 
         }
     }
