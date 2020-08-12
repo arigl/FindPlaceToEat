@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="@drawable/night" >
 
     <RelativeLayout
         android:id="@+id/relativelayout"
@@ -28,7 +29,7 @@
             android:scaleX="1"
             android:scaleY="1"
             app:srcCompat="@mipmap/red_foreground"
-            tools:src="@mipmap/red_foreground" />
+            tools:src="@mipmap/blackicon_round" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -50,23 +51,34 @@
     </RelativeLayout>
 
 
-
-    <EditText
-        android:id="@+id/loginUsernameField"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:inputType="text" android:autofillHints=""
-        android:paddingTop="50dp"/>
-
-    <TextView
-        android:id="@+id/Label"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_weight="0"
-        android:padding="0dp"
-        android:paddingTop="0dp"
-        android:text="What is your zip code?" />
+        android:layout_marginTop="50dp"
+        android:background="@color/black">
+
+        <EditText
+            android:id="@+id/loginUsernameField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:inputType="text"
+            android:paddingTop="50dp"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_weight="0"
+            android:padding="0dp"
+            android:paddingTop="0dp"
+            android:text="What is your zip code?"
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
 
 
 </LinearLayout>

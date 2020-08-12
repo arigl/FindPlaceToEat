@@ -99,7 +99,7 @@ public class PlaceActivity extends AppCompatActivity {
         resturantFive = (TextView) findViewById(R.id.resturantFive);
 
         int PresentedImage = 0;
-        int category = new Random().nextInt(4);
+        int category = new Random().nextInt(6);
 
         if(category == 0){
             categoryFood = "Chinese";
@@ -126,6 +126,20 @@ public class PlaceActivity extends AppCompatActivity {
             categoryFood = "Indian";
             linkFood = "Indian";
             PresentedImage = R.mipmap.indian;
+            //link = "https://maps.googleapis.com/maps/api/place/textsearch/json?query="+"Indian"+"+in+"+"92869"+"&key=AIzaSyBQa6Ff8Xe0R6Tjdb9ScLwQD-Hpn3uZZfg";
+
+        }
+        if(category == 4){
+            categoryFood = "Japanese";
+            linkFood = "sushi";
+            PresentedImage = R.mipmap.japanese;
+            //link = "https://maps.googleapis.com/maps/api/place/textsearch/json?query="+"Indian"+"+in+"+"92869"+"&key=AIzaSyBQa6Ff8Xe0R6Tjdb9ScLwQD-Hpn3uZZfg";
+
+        }
+        if(category == 5){
+            categoryFood = "Mexican";
+            linkFood = "mexican";
+            PresentedImage = R.mipmap.mexican;
             //link = "https://maps.googleapis.com/maps/api/place/textsearch/json?query="+"Indian"+"+in+"+"92869"+"&key=AIzaSyBQa6Ff8Xe0R6Tjdb9ScLwQD-Hpn3uZZfg";
 
         }
